@@ -1,0 +1,12 @@
+.reel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .symbol {
+    width: 100px;
+    height: 100px;
+    background-color: $color-reel-background;
+    @include border-radius(10px);
+    box-shadow: inset 0 0 10px $color-dark-background;
+  }
+}

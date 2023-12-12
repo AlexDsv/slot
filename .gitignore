@@ -1,0 +1,25 @@
+# Dépendances
+/node_modules
+
+# Fichiers de build
+/dist
+/build
+
+# Fichiers de cache et de logs
+*.log
+*.cache
+*.tmp
+
+# Fichiers de configuration de l'environnement
+.env
+.env.local
+
+# Dossiers et fichiers de l'éditeur
+/.vscode
+/.idea
+*.sublime-workspace
+*.sublime-project
+
+# Fichiers et dossiers générés par l'OS
+.DS_Store
+Thumbs.db

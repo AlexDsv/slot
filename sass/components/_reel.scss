@@ -1,14 +1,56 @@
 .reel {
+  position: relative;
+  overflow: hidden;
   background-color: $color-reel-background;
   height: 48vh;
   width: 16.7vh;
-  box-shadow: inset 0px 35px 15px -10px rgba(0, 0, 0, 0.9),
-    inset 0px -35px 15px -10px rgba(0, 0, 0, 0.9);
+}
+.symbols {
+  position: absolute;
+  top: 0;
 }
 
+.reelSymbols {
+  -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+  animation-fill-mode: forwards;
+}
+
+.bounce {
+  animation: bounce 2s ease-in-out;
+}
+
+.symbol {
+  height: 31%;
+  z-index: 0;
+  position: relative;
+  text-align: center;
+  img {
+    width: 92%;
+    height: auto;
+  }
+}
 @media (min-width: 1550px) {
   .reel {
     width: 15vw;
     height: 26vw;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-159vh);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.05);
   }
 }

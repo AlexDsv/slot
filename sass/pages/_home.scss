@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 7vh;
 }
 
 .slot-machine {
@@ -38,6 +39,20 @@
   background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
 }
 
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 13vh;
+  gap: 4vh;
+}
+
+#wallet,
+#bet {
+  font-size: 21px;
+  color: white;
+  font-weight: bold;
+}
 @media (min-width: 1550px) {
   .slot-machine {
     width: 28.5vw;

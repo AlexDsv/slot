@@ -93,26 +93,37 @@ function checkForWinningLinesAndApplyBounce() {
     {
 
         applyBounceToWinningSymbols(visibleSymbolsReel1, visibleSymbolsReel2, visibleSymbolsReel3, 0);
+        wallet += 2 * bet
+        updateWalletDisplay();
+        
     }
     if(visibleSymbolsReel1[1].name === visibleSymbolsReel2[1].name && visibleSymbolsReel2[1].name === visibleSymbolsReel3[1].name)
     {
         applyBounceToWinningSymbols(visibleSymbolsReel1, visibleSymbolsReel2, visibleSymbolsReel3, 1)
+        wallet += 2 * bet
+        updateWalletDisplay();
     }
     if(visibleSymbolsReel1[2].name === visibleSymbolsReel2[2].name && visibleSymbolsReel2[2].name === visibleSymbolsReel3[2].name)
     {
         applyBounceToWinningSymbols(visibleSymbolsReel1, visibleSymbolsReel2, visibleSymbolsReel3, 2)
+        wallet += 2 * bet
+        updateWalletDisplay();
     }
     if(visibleSymbolsReel1[0].name === visibleSymbolsReel2[1].name && visibleSymbolsReel2[1].name === visibleSymbolsReel3[2].name)
     {
         applyBounceToWinningSymbols(visibleSymbolsReel1, visibleSymbolsReel1, visibleSymbolsReel1, 0)
         applyBounceToWinningSymbols(visibleSymbolsReel2, visibleSymbolsReel2, visibleSymbolsReel2, 1)
         applyBounceToWinningSymbols(visibleSymbolsReel3, visibleSymbolsReel3, visibleSymbolsReel3, 2)
+        wallet += 2 * bet
+        updateWalletDisplay();
     }
     if(visibleSymbolsReel1[2].name === visibleSymbolsReel2[1].name && visibleSymbolsReel2[1].name === visibleSymbolsReel3[0].name)
     {
         applyBounceToWinningSymbols(visibleSymbolsReel3, visibleSymbolsReel3, visibleSymbolsReel3, 0)
         applyBounceToWinningSymbols(visibleSymbolsReel2, visibleSymbolsReel2, visibleSymbolsReel2, 1)
         applyBounceToWinningSymbols(visibleSymbolsReel1, visibleSymbolsReel1, visibleSymbolsReel1, 2)
+        wallet += 2 * bet
+        updateWalletDisplay();
     }
     
 }
@@ -121,11 +132,15 @@ function resetAnimations() {
     document.querySelectorAll('.symbol.bounce').forEach(symbol => symbol.classList.remove('bounce'));
 }
 
-function startSpinning(reelSymbols: HTMLElement, animationDuration: number, callback: () => void) {
+function startSpinning(reelSymbols: HTMLElement, reelSymbols2: HTMLElement, reelSymbols3: HTMLElement, animationDuration: number, callback: () => void) {
     reelSymbols.style.animation = "none";
+    reelSymbols2.style.animation = "none";
+    reelSymbols3.style.animation = "none";
 
     setTimeout(() => {
         reelSymbols.style.animation = `spin ${animationDuration}s ease-out forwards`;
+        reelSymbols2.style.animation = `spin ${animationDuration}s ease-out forwards`;
+        reelSymbols3.style.animation = `spin ${animationDuration}s ease-out forwards`;
         setTimeout(callback, animationDuration * 1000);
     }, 0);
 }
@@ -135,7 +150,8 @@ let bet: number = 10
 
 document.getElementById('spinButton')?.addEventListener('click', () => {
     resetAnimations(); 
-    wallet = wallet - bet;
+    wallet -= bet;
+    updateWalletDisplay();
     if (bet > wallet) {
         console.log("Solde insuffisant pour ce pari");
         return;
@@ -156,11 +172,7 @@ document.getElementById('spinButton')?.addEventListener('click', () => {
     
 
     
-    startSpinning(reel1, animationDuration, checkForWinningLinesAndApplyBounce);
-    startSpinning(reel2, animationDuration, checkForWinningLinesAndApplyBounce)
-    startSpinning(reel3, animationDuration, checkForWinningLinesAndApplyBounce)
-
-    checkForWinningLinesAndApplyBounce();
+    startSpinning(reel1, reel2, reel3, animationDuration, checkForWinningLinesAndApplyBounce);
     
     updateBetDisplay(bet)
 })
@@ -175,14 +187,18 @@ const betBtn500 = document.getElementById('betButton500')
 const betBtn750 = document.getElementById('betButton750')
 const betBtn1000 = document.getElementById('betButton1000')
 
+function updateWalletDisplay() {
+    const walletElement = document.getElementById('wallet');
+    if (walletElement) {
+        walletElement.textContent = `Solde: ${wallet} €`
+    }
+    
+}
+
 function updateBetDisplay(bet: number) {
     const betElement = document.getElementById('bet');
-    const walletElement = document.getElementById('wallet');
     const spinButton = document.getElementById('spinButton') as HTMLButtonElement;
 
-    if (walletElement) {
-        walletElement.textContent = `Solde: ${wallet}`
-    }
     if (betElement) {
         betElement.textContent = `Bet: ${bet} €`;
     }
